@@ -9,6 +9,7 @@ class ThinkSpeakPushActor(key: String) extends Actor with Stash {
 
   override def receive: Receive = {
     case a: SolarStatus =>
+      System.out.println(a)
       new ThinkSpeakPublisher().publish(a, key)
 
     case _ =>

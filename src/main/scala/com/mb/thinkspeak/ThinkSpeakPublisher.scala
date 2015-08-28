@@ -14,7 +14,9 @@ class ThinkSpeakPublisher {
       .WithPvVoltage(s.pvVoltage)
       .build()
 
-    scala.io.Source.fromURL(url)
+    System.out.println(url)
+
+    //scala.io.Source.fromURL(url)
   }
 
 }
