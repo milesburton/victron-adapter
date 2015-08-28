@@ -1,8 +1,10 @@
+import sbt.Keys._
+
 name := "solar"
 
 mainClass in Compile := Some("com.mb.Main")
 
-organization := "com.mba"
+organization := "com.mb"
 
 scalaVersion := "2.11.7"
 
@@ -28,6 +30,17 @@ libraryDependencies += "org.rxtx" % "rxtx" % "2.1.7"
 libraryDependencies += "org.scalatest" %% "scalatest" % "2.2.1" % "test"
 
 pomIncludeRepository := { _ => false}
+
+lazy val commonSettings = Seq(
+  version := "0.0.1",
+  organization := "com.mb",
+  scalaVersion := "2.11.7"
+)
+
+lazy val app = (project in file("app")).
+  settings(commonSettings: _*).
+  settings(
+  )
 
 pomExtra := (
   <scm>
