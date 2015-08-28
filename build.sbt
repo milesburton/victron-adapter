@@ -1,10 +1,10 @@
 name := "solar"
 
-mainClass in Compile := Some("Example.Class")
+mainClass in Compile := Some("com.mb.Main")
 
 organization := "com.mba"
 
-scalaVersion := "2.11.2"
+scalaVersion := "2.11.7"
 
 version := "0.0.1"
 

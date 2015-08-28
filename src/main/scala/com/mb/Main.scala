@@ -1,12 +1,12 @@
+package com.mb
 
-import akka.actor.{ Actor, ActorRef, Props, ActorSystem }
+
+import akka.actor.{Actor, ActorRef, ActorSystem, Props, Stash}
 import akka.io.IO
-import akka.util.ByteString
-import akka.actor.Stash
 import rxtxio.Serial
 import rxtxio.Serial._
 
-class Example(port: String) extends Actor with Stash {
+class Main(port: String) extends Actor with Stash {
   import context.system
 
   override def preStart = {
@@ -35,7 +35,7 @@ class Example(port: String) extends Actor with Stash {
       operator ! Close
 
     case s: String => //external input
-      operator ! Write(ByteString(s))
+      //operator ! Write(ByteString(s))
 
     case Received(data) =>
       print("Received data from serial port: ")
@@ -47,11 +47,11 @@ class Example(port: String) extends Actor with Stash {
   }
 }
 
-object Example extends App {
-  val port = "/dev/cu.usbserial-A6008hNp"
+object Main extends App {
+  val port = "/dev/ttyUSB0"
 
   val system = ActorSystem("Example")
-  val actor = system.actorOf(Props(new Example(port)), "e1")
+  val actor = system.actorOf(Props(new Main(port)), "e1")
 
   //The following lines are just for the sake of an example, never program in
   // akka like that.. normally your logic would be embedded in the example
