@@ -17,6 +17,9 @@ homepage := Some(url("https://blog.milesburton.com"))
 resolvers += "Sonatype OSS Snapshots" at
   "https://oss.sonatype.org/content/repositories/snapshots"
 
+libraryDependencies += "io.spray" % "spray-http_2.11" % "1.3.3"
+
+libraryDependencies += "org.scalamock" % "scalamock-scalatest-support_2.11" % "3.2.2"
 
 libraryDependencies += "ch.inventsoft.akka" %% "rxtx-akka-io" % "1.0.4"
 

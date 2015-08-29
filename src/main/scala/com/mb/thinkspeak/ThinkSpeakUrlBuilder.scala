@@ -1,51 +1,26 @@
 package com.mb.thinkspeak
 
-class ThinkSpeakUrlBuilder {
+import spray.http.Uri
 
-  var queryString = ""
+case class ThinkSpeakUrlBuilder(params: Map[String, String] = Map()) {
 
-  def withKey(v: String) = {
-    queryString = queryString + "key=" + v + "&"
-    this
-  }
+  def withKey(v: String) = addParam("key",v)
 
-  def withBatteryVoltage(v: Option[Long]) = {
-    v match {
-      case Some(l) =>
-        queryString = queryString + "field1=" + l + "&"
-      case _ =>
-    }
-    this
-  }
+  def withBatteryVoltage(v: Option[String]) = addParam("field1", v)
 
-  def withBatteryChargeCurrent(v: Option[Long]) = {
-    v match {
-      case Some(l) =>
-        queryString = queryString + "field2=" + l + "&"
-      case _ =>
-    }
-    this
-  }
+  def withBatteryChargeCurrent(v: Option[String]) = addParam("field2", v)
 
-  def WithPvVoltage(v: Option[Long]) = {
-    v match {
-      case Some(l) =>
-        queryString = queryString + "field3=" + l + "&"
-      case _ =>
-    }
-    this
-  }
+  def withPvVoltage(v: Option[String]) = addParam("field3", v)
 
-  def withPvWattage(v: Option[Long]) = {
-    v match {
-      case Some(l) =>
-        queryString = queryString + "field4=" + l + "&"
-      case _ =>
-    }
-    this
-  }
+  def withPvWattage(v: Option[String]) = addParam("field4", v)
 
-  def build() = {
-    "http://api.thingspeak.com/update?" + queryString
-  }
+  def withPvCurrent(v: Option[String]) = addParam("field5", v)
+
+  def withBatteryChargeWattage(v: Option[String]) = addParam("field6", v)
+
+  private def addParam(k: String, v: Option[String]):ThinkSpeakUrlBuilder = if (v.nonEmpty) addParam(k, v.get) else this
+
+  private def addParam(k: String, v: String):ThinkSpeakUrlBuilder = this.copy(params = params + (k -> v))
+
+  def build() = Uri("http://api.thingspeak.com/update").withQuery(params)
 }

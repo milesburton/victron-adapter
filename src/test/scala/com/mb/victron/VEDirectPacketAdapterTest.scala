@@ -1,6 +1,5 @@
-package com.mb
+package com.mb.victron
 
-import com.mb.victron.{VEDirectPacketAdapter, SolarStatus}
 import org.scalatest.{FlatSpec, Matchers}
 
 
@@ -11,10 +10,10 @@ class VEDirectPacketAdapterTest extends FlatSpec with Matchers {
   "A Normal VE Direct Packet" should "Translate to a full Solar Status" in {
 
     val expectedObject = new SolarStatus(
-      batteryVoltage = Some(13360),
-      batteryChargeCurrent = Some(2300),
-      pvVoltage = Some(29180),
-      pvWattage = Some(32))
+      batteryVolts = Some("13.36"),
+      batteryChargeAmps = Some("2.3"),
+      pvVolts = Some("29.18"),
+      pvWatts = Some("32"))
 
     val obj = vEDirectPacketAdapter.convert(vEDirectPacket)
     obj should be (expectedObject)

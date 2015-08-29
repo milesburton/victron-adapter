@@ -2,7 +2,7 @@ package com.mb.actors
 
 import akka.actor.{Actor, ActorRef, Stash}
 import akka.io.IO
-import com.mb.victron.VEDirectPacketAdapter
+import com.mb.victron.{SolarStatusEnricher, VEDirectPacketAdapter}
 import rxtxio.Serial
 import rxtxio.Serial._
 
@@ -11,6 +11,7 @@ class RxListenerActor(port: String, solarStatusListener: ActorRef) extends Actor
   import context.system
 
   val veAdapter = new VEDirectPacketAdapter
+  val solarStatusEnricher = new SolarStatusEnricher
 
   override def preStart = {
     IO(Serial) ! Open(port, 19200)
@@ -36,7 +37,9 @@ class RxListenerActor(port: String, solarStatusListener: ActorRef) extends Actor
 
     case Received(data) =>
 
-      solarStatusListener ! veAdapter.convert(data.decodeString("UTF-8"))
+      val rawStatus = veAdapter.convert(data.decodeString("UTF-8"))
+      val enrichedStatus = solarStatusEnricher.enrich(rawStatus)
+      solarStatusListener ! enrichedStatus
 
     case Closed =>
       println("Serial port closed")
