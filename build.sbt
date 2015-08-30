@@ -19,6 +19,8 @@ resolvers += "Sonatype OSS Snapshots" at
 
 libraryDependencies += "io.spray" % "spray-http_2.11" % "1.3.3"
 
+libraryDependencies += "com.github.nscala-time" %% "nscala-time" % "2.2.0"
+
 libraryDependencies += "org.scalamock" % "scalamock-scalatest-support_2.11" % "3.2.2"
 
 libraryDependencies += "ch.inventsoft.akka" %% "rxtx-akka-io" % "1.0.4"
@@ -29,8 +31,11 @@ libraryDependencies += "com.typesafe.akka" %% "akka-testkit" % "2.3.4" % "test"
 
 libraryDependencies += "org.rxtx" % "rxtx" % "2.1.7"
 
-
 libraryDependencies += "org.scalatest" %% "scalatest" % "2.2.1" % "test"
+
+libraryDependencies += "com.github.scopt" %% "scopt" % "3.3.0"
+
+resolvers += Resolver.sonatypeRepo("public")
 
 pomIncludeRepository := { _ => false}
 
